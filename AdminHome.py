@@ -1,3 +1,4 @@
+import csv
 from datetime import date
 from tkinter import *
 from tkinter import messagebox
@@ -33,10 +34,10 @@ class demo:
         def grad_date(self):
                 self.da = self.cal.get_date()
                 new1 = datetime.strptime(self.da, '%m/%d/%y')
-                self.new2 = datetime.strftime(new1, '%m/%d/%y')
+                self.new5 = datetime.strftime(new1, '%m/%d/%y')
                 self.ent1.config(state='normal')
                 self.ent1.delete(0, 'end')
-                self.ent1.insert(0, self.new2)
+                self.ent1.insert(0, self.new5)
                 self.ent1.config(state='readonly')
                 self.cal.destroy()
 
@@ -53,21 +54,42 @@ class demo:
 
         def fetch(self):
 
-            conn = connect(host='127.0.0.1', user='root', password='', database='multistore')
-            cr = conn.cursor()
 
-            q = 'select * from bill where dateOfBill between "{}" and "{}"'.format(self.new2, self.new4)
-            print(q)
-            cr.execute(q)
-            self.result5 = cr.fetchall()
+            if self.ent1.get()=="" and self.ent2.get()=="":
 
-            for i in self.tree.get_children():
-                self.tree.delete(i)
+                conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
+                cr = conn.cursor()
 
-            for i in self.result5:
-                self.tree.insert("", END, value=i)
+                q = 'select * from bill '
+                print(q)
+                cr.execute(q)
+                self.result6 = cr.fetchall()
 
-            self.total1()
+                for i in self.tree.get_children():
+                    self.tree.delete(i)
+
+                for i in self.result6:
+                    self.tree.insert("", END, value=i)
+
+                self.total1()
+
+            else:
+
+                conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
+                cr = conn.cursor()
+
+                q = 'select * from bill where dateOfBill between "{}" and "{}"'.format(self.new5, self.new4)
+                print(q)
+                cr.execute(q)
+                self.result5 = cr.fetchall()
+
+                for i in self.tree.get_children():
+                    self.tree.delete(i)
+
+                for i in self.result5:
+                    self.tree.insert("", END, value=i)
+
+                self.total1()
 
         def showdetails1(self,event):
             self.top = Toplevel()
@@ -80,7 +102,7 @@ class demo:
             self.trv1.heading(2, text="Product ID")
             self.trv1.heading(3, text="Quantity")
             self.trv1.heading(4, text="Price")
-            conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             self.temp_data = self.tree.item(self.tree.focus())['values']
 
@@ -103,27 +125,58 @@ class demo:
 
             new = self.com.get()
             if new == "":
-                pass
+                showerror('search',"Field could not be empty")
+
+            elif self.ent1.get()=="" and self.ent2.get()=="":
+                conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
+                cr = conn.cursor()
+                q = f'select * from bill where billBy ="{new}"'
+                cr.execute(q)
+                self.bills= cr.fetchall()
+
+                print(self.bills)
+                if self.bills==():
+                    showinfo('search',"No data found")
+
+                else:
+                    for i in self.tree.get_children():
+                        self.tree.delete(i)
+
+                    for i in self.bills:
+                        self.tree.insert("", END, value=i)
+
+                    self.com.config(state='normal')
+                    self.com.delete(0, 'end')
+                    self.com.insert(0, "")
+                    self.com.config(state='readonly')
+                    self.total1()
+
+
             else:
-                conn = connect(host='127.0.0.1', user='root', password='', database='multistore')
+                conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
                 cr = conn.cursor()
 
-                q = 'select * from bill where dateOfBill between "{}" and "{}" and "{}"'.format(self.new2, self.new4,new)
+                q = 'select * from bill where dateOfBill between "{}" and "{}"  and  billBy = "{}" '.format(self.new5, self.new4,new)
                 print(q)
                 cr.execute(q)
                 self.result58 = cr.fetchall()
 
-                for i in self.tree.get_children():
-                    self.tree.delete(i)
+                if self.result58==():
+                    showinfo('search',"No data found")
 
-                for i in self.result58:
-                    self.tree.insert("", END, value=i)
+                else:
 
-                self.com.config(state='normal')
-                self.com.delete(0, 'end')
-                self.com.insert(0, "")
-                self.com.config(state='readonly')
-                self.total1()
+                    for i in self.tree.get_children():
+                        self.tree.delete(i)
+
+                    for i in self.result58:
+                        self.tree.insert("", END, value=i)
+
+                    self.com.config(state='normal')
+                    self.com.delete(0, 'end')
+                    self.com.insert(0, "")
+                    self.com.config(state='readonly')
+                    self.total1()
 
         def total1(self):
 
@@ -171,9 +224,9 @@ class demo:
             self.ent7 = Entry(self.canvas1)
             self.ent7.place(x=950, y=339)
             self.canvas1.create_text(400,350,text='Search by Store ID : ',font= ("arial","15","bold",'bold'))
-            conn = connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
-            q = 'select billBy from bill'
+            q = 'select StoreID from storeview'
             cr.execute(q)
             conn.commit()
             self.result = cr.fetchall()
@@ -186,15 +239,19 @@ class demo:
 
             self.menu_1 = Menu(self.root)
             self.root.config(menu=self.menu_1)
+
             self.admin = Menu(self.menu_1,tearoff=0)
             self.menu_1.add_cascade(label="Admin",menu = self.admin)
             self.admin.add_command(label ="Add User",command=lambda :addAdmin.admin_view())
             self.admin.add_command(label ="View Admin",command= lambda :viewAdmin.viewadd()  )
             self.admin.add_command(label ="Logout",command= self.logout )
+
             self.catmenu = Menu(self.menu_1,tearoff=0)
             self.menu_1.add_cascade(label="Category",menu=self.catmenu)
             self.catmenu.add_command(label="Add Category",command= lambda :addCatagory.addcat())
             self.catmenu.add_command(label="View Category",command= lambda :viewCategory.viewcat())
+
+
             self.promenu= Menu(self.menu_1,tearoff=0)
             self.menu_1.add_cascade(label="Products",menu=self.promenu)
             self.promenu.add_command(label="View Products", command= lambda :viewProducts.viewpro())
@@ -210,11 +267,22 @@ class demo:
             self.tree.heading(3,text='Store ID')
             self.tree.heading(4,text='Bill Value')
             self.tree.bind("<Double-1>", self.showdetails1)
+            Button(self.canvas1,text='Convert to excel', command = self.save_csv ).pack(side='bottom',pady=15)
             self.tree.pack()
 
 
 
             self.root.mainloop()
+
+        def save_csv(self):
+            with open("new.csv", "w", newline='') as myfile:
+                csvwriter = csv.writer(myfile, delimiter=',', dialect='excel')
+
+                for row_id in self.tree.get_children():
+                    row = self.tree.item(row_id)['values']
+                    print('save row:', row)
+                    csvwriter.writerow(row)
+                    showinfo('csv',"CSV File Genrated")
 
         def logout(self):
 

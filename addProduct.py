@@ -24,7 +24,7 @@ class addpro:
         self.en3 = Text(self.top, height=5, width=47)
         self.en3.place(x=550, y=200)
         self.label_4 = Label(self.top, text="Category Name :: ").place(x=400, y=350)
-        conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select CategoryName from Category'
         cr.execute(q)
@@ -46,7 +46,7 @@ class addpro:
         self.pprc = self.var_2.get()
         self.pdes = self.en3.get(1.0, END)
         self.cat = self.enl.get()
-        conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         if self.pnam=="" or self.pprc=="" or self.pdes=="" or  self.cat=="":
             showinfo("ADD PRODUCT","Provide valid inputs")

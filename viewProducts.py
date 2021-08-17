@@ -20,14 +20,14 @@ class viewpro:
         self.trv1.heading(4, text="Product Description")
         self.trv1.heading(5, text="category Name")
         self.trv1.bind("<Double-1>", self.show_details)
-        conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select * from products'
         cr.execute(q)
         self.result = cr.fetchall()
 
         for i in self.trv1.get_children():
-            self.trv.delete(i)
+            self.trv1.delete(i)
 
         for i in self.result:
             self.trv1.insert("", END, value=i)
@@ -53,7 +53,7 @@ class viewpro:
             self.ll3.insert(0, self.temp_data[3])
             self.ll3.pack(side=TOP, pady=10)
             self.label_5 = Label(self.top, text="Category Name :: ").pack(side=TOP, pady=10)
-            conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             q = 'select CategoryName from Category'
             cr.execute(q)
@@ -82,7 +82,7 @@ class viewpro:
             self.pp = self.ll2.get()
             self.pd = self.ll3.get()
             self.pc = self.enl.get()
-            conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             q = 'update products set PName="{}",PPrice="{}",PDescription="{}",CatergoryName="{}" where PID="{}"'.format(self.pnam, self.pp, self.pd,self.pc,self.em1.get() )
             print(q)
@@ -105,7 +105,7 @@ class viewpro:
 
     def delupdate(self):
             self.eml = self.em1.get()
-            conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             q = 'delete from products where PID="{}"'.format(self.eml)
 

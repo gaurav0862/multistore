@@ -14,7 +14,7 @@ total = float
 class demo:
 
     def callbackFunc(self,event):
-        conn = Connect(host="127.0.0.1", user="root", password="", database="multistore")
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select PName from products where CatergoryName="{}"'.format(self.com.get())
         cr.execute(q)
@@ -29,7 +29,7 @@ class demo:
     def pricepro(self,event):
 
         global val
-        conn = Connect(host="127.0.0.1", user="root", password="", database="multistore")
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select * from products where PName="{}"'.format(self.com1.get())
         print(q)
@@ -68,6 +68,11 @@ class demo:
         self.spinval.delete(0,'end')
         self.spinval.insert(0,str(1))
         self.trv1.insert('', index=count+1, values=new)
+        self.com.set("")
+        self.com1.set("")
+        self.ne.config(state="normal")
+        self.ne.delete(0,'end')
+        self.ne.config(state = "readonly")
         self.total()
 
 
@@ -86,7 +91,7 @@ class demo:
             self.canvas1.pack(fill="both", expand=True)
 
             self.canvas1.create_image(0,0,image=self.bg,anchor='nw')
-            conn=Connect(host="127.0.0.1",user="root",password="",database="multistore")
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr=conn.cursor()
 
 
@@ -100,7 +105,7 @@ class demo:
                 self.x.append(i)
 
 
-            self.canvas1.create_text(700,50,text=f"Welcome {self.x[0]}", font= ("Gabriola","50","italic",'bold'))
+            self.canvas1.create_text(700,50,text=f"Welcome To {self.x[0]}", font= ("Gabriola","50","italic",'bold'))
             self.canvas1.create_text(350,170,text="Select Catergory",font=("arial","15","bold"))
 
             q = 'select CategoryName from category'
@@ -205,8 +210,8 @@ class demo:
 
 
         now = datetime.now()
-        self.date1   = now.strftime("%mm/%d/%y")
-        conn = connect(host="127.0.0.1",user="root",password="",database="multistore")
+        self.date1   = now.strftime("%m/%d/%y")
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q= 'Insert into bill values ("{}","{}","{}","{}")'.format( "null",self.date1,self.lgv,total)
         print(q)

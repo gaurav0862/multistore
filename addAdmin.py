@@ -34,11 +34,12 @@ class admin_view:
         if self.eql=="" and self.pml=="" and self.pml_1=="":
             showinfo("ADD ADMIN","Please provide input")
         else:
-            conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             q = 'insert into admin values ("{}","{}",null,"{}")'.format(self.eql, self.pml, self.pml_1)
             cr.execute(q)
             print(q)
             conn.commit()
-            self.result = cr.fetchall()
+            showinfo('Add Admin','New Admin Added Successully')
+
             self.top.destroy()

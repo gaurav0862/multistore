@@ -9,7 +9,7 @@ from pymysql import *
 class fetch:
 
     def __init__(self,new2,new4):
-        conn = connect(host='127.0.0.1',user='root',password='',database='multistore')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
 
         q = 'select * from bill where dateOfBill between "{}" and "{}"'.format(new2,new4)

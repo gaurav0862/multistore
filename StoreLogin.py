@@ -4,16 +4,16 @@ from tkinter.messagebox import *
 from pymysql import *
 import datetime
 import storeHome
-import forgot
 
 
-class login:
+
+class stologin:
 
 
     def login1(self):
 
-        con = connect(host="127.0.0.1",user='root',password='',database='multistore')
-        cr = con.cursor()
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
+        cr = conn.cursor()
 
         self.lgv = self.var_1.get()
         self.lgv_1 = self.var_2.get()
@@ -60,13 +60,9 @@ class login:
         self.eme_1.place(x=250,y=170)
         self.btn = Button(self.root,text="LOGIN", command=self.login1)
         self.btn.place(x=225,y=225)
-        self.canvas1.create_text(245,275, text="Forgot password", font=('Helveticabold', 7))
 
-        # self.new = Label(self.root, text="this is a test")
-        # self.new.pack(side='bottom')
-        # self.new.bind("<Button-1>", '')
 
         self.root.mainloop()
 
 
-obj=login()
+# obj=login()

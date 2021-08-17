@@ -26,7 +26,7 @@ class addcat:
     def unewcat(self):
         self.cnam = self.var_1.get()
         self.catdes = self.enp.get(1.0, END)
-        conn = Connect(host='127.0.0.1', user='root', password='', database='multistore')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         if self.cnam=="" and self.catdes=="":
             showinfo("ADD CATEGORY",'Please input correct details')
@@ -34,5 +34,5 @@ class addcat:
             q = 'insert into category values ("{}","{}")'.format(self.cnam, self.catdes)
             cr.execute(q)
             conn.commit()
-            self.result = cr.fetchall()
+            showinfo('category','New Category Added')
             self.top.destroy()

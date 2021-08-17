@@ -6,7 +6,7 @@ import datetime
 import AdminHome
 
 
-class login:
+class adlogin:
 
     def __init__(self):
         self.root = Tk()
@@ -21,14 +21,14 @@ class login:
 
         self.var_1 = StringVar()
         self.var_2 = StringVar()
-        # self.lab  = Label(text = "LOGIN", font=('Ink Free',24,"bold")).place(x=200,y=50)
+
         self.canvas1.create_text(250, 50, text="Login", font=('Ink Free', 50, "bold",))
-        # self.lab_1 = Label(text="ENTER EMAIL ID : ").place(x=125,y=125,)
+
         self.canvas1.create_text(200, 135, text="ENTER EMAIL ID : ")
 
         self.eme = Entry(self.root, textvariable=self.var_1)
         self.eme.place(x=250, y=125)
-        # self.lab_2 = Label(text="ENTER PASSWORD : ").place(x=125,y=170)
+
         self.canvas1.create_text(192, 180, text="ENTER PASSWORD : ")
         self.eme_1 = Entry(self.root, textvariable=self.var_2, show='*')
         self.eme_1.place(x=250, y=170)
@@ -39,8 +39,8 @@ class login:
 
 
     def login1(self):
-        con = connect(host="127.0.0.1", user='root', password='', database='multistore')
-        cr = con.cursor()
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
+        cr = conn.cursor()
 
         self.lgv = self.var_1.get()
         self.lgv_1 = self.var_2.get()
@@ -52,21 +52,19 @@ class login:
             q = 'select * from admin where email="{}" and password="{}" '.format(self.lgv, self.lgv_1)
             cr.execute(q)
             self.result = cr.fetchone()
-            print(self.result)
+
             if self.result == None:
                 showinfo('Login', "Invalid Input")
             else:
-                print(datetime.datetime.now())
                 self.time_1 = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-                print(self.time_1)
+
                 q = 'update admin set last_login="{}" where email="{}"'.format(self.time_1, self.lgv)
                 self.result = cr.execute(q)
-                con.commit()
+                conn.commit()
                 showinfo('Login', "Login Sucessfull")
-                print("Login Sucessfull")
                 self.root.destroy()
                 AdminHome.demo()
 
 
 
-obj = login()
+# obj = login()

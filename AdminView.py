@@ -48,7 +48,7 @@ class admin:
             self.pqw = self.pm.get()
             self.eml = self.em.get()
             self.rol = self.enl.get()
-            conn = Connect(host='127.0.0.1', user='root', password='', database='admin_login')
+            conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
             cr = conn.cursor()
             q = 'update admin set password="{}",type_1="{}" where email="{}"'.format(self.pqw,self.rol, self.eml,)
 
@@ -69,7 +69,7 @@ class admin:
 
     def delupdate(self):
         self.eml = self.em.get()
-        conn = Connect(host='127.0.0.1', user='root', password='', database='admin_login')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'delete from admin where email="{}"'.format(self.eml)
 
@@ -90,7 +90,7 @@ class admin:
     #---------------SHOW EXISTING DATA---------------------
 
     def show_data(self):
-        conn = Connect(host='127.0.0.1', user='root', password='', database='admin_login')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select * from admin'
         cr.execute(q)
@@ -125,7 +125,7 @@ class admin:
         self.eql = self.var_1.get()
         self.pml = self.var_2.get()
         self.pml_1 = self.enp.get()
-        conn = Connect(host='127.0.0.1', user='root', password='', database='admin_login')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'insert into admin values ("{}","{}",null,"{}")'.format(self.eql,self.pml,self.pml_1)
         cr.execute(q)
@@ -154,7 +154,7 @@ class admin:
         self.trv.heading(3,text="Last Login")
         self.trv.heading(4,text="Type")
         self.trv.bind("<Double-1>",self.show_details)
-        conn = Connect(host='127.0.0.1', user='root', password='', database='admin_login')
+        conn=Connect(host='13.232.35.56', user='shivam', password='shivam@123', database='shivam')
         cr = conn.cursor()
         q = 'select * from admin'
         cr.execute(q)
